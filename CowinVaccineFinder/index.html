@@ -40,7 +40,7 @@
             function findSlotAvailability() {
                 var vaccinedate = $("#vaccine-datepicker").val();
                 var url = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=725&date=" + vaccinedate;
-                console.log(url);
+                //console.log(url);
                 $.ajax({
                     type: "Get",
                     url: url,
@@ -55,13 +55,14 @@
                                 cnt+=1;
                                 var row = "Name: "+data["name"]+"; Addr: "+data["address"]
                                             +"; Pincode: "+data["pincode"]+"; Age Limit: "+data["min_age_limit"]
-                                            +"; Vaccine: "+data["vaccine"]+"; Availability: "+data["available_capacity"];
+                                            +"; Vaccine: "+data["vaccine"]+"; Availability: "+data["available_capacity"]
+                                            +"; Dose1: "+data["available_capacity_dose1"]+"; Dose2: "+data["available_capacity_dose2"];
 
-                                rows = rows + row + "<br/>";
+                                rows = rows + row + "<br/><hr/>";
                             }
                         
                         });
-                        console.log(cnt);
+                        //console.log(cnt);
                         if(cnt == 0) {
                             $("#message").html("No Available Slots");
                             $("#cowinportal").hide();
