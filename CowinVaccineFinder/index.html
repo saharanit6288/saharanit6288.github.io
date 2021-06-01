@@ -1,0 +1,97 @@
+<html>
+    <head>
+        <title>CoWin Vaccine Finder</title>
+        <script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/css/bootstrap-datepicker3.min.css">
+        
+        <script type="text/javascript">
+            var d = new Date();
+            var year = d.getFullYear();
+            var month = d.getMonth()+1;
+            var day = d.getDate();
+
+            var todayDate = (day<10 ? '0' : '') + day + '-' +(month<10 ? '0' : '') + month + '-' + year;
+
+            var cnt = 0;
+
+            var btnClick=0;
+
+            $(document).ready(function () {
+                
+                $("#today-date").html(todayDate);
+                $("#cowinportal").hide();
+                
+                $("#vaccine-datepicker").datepicker({ 
+                    format: 'dd-mm-yyyy'
+                });
+                $("#vaccine-datepicker").on("change", function () {
+                    btnClick=0;
+                    $("#buttonclickcount").html("0");
+                    $("#message").html("");
+                    cnt = 0;
+                    $("#cowinportal").hide();
+                });
+            });
+
+
+            function findSlotAvailability() {
+                var vaccinedate = $("#vaccine-datepicker").val();
+                var url = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=725&date=" + vaccinedate;
+                console.log(url);
+                $.ajax({
+                    type: "Get",
+                    url: url,
+                    dataType: "json",
+                    success: function (result, status, xhr) {
+                        var arr = result["sessions"];
+                        var table;
+                        var rows = "";
+                        $.each(arr, function(key,data) {
+                            if(data["available_capacity"] >0 && data["min_age_limit"] >=18)
+                            {
+                                cnt+=1;
+                                var row = "Name: "+data["name"]+"; Addr: "+data["address"]
+                                            +"; Pincode: "+data["pincode"]+"; Age Limit: "+data["min_age_limit"]
+                                            +"; Vaccine: "+data["vaccine"]+"; Availability: "+data["available_capacity"];
+
+                                rows = rows + row + "<br/>";
+                            }
+                        
+                        });
+                        console.log(cnt);
+                        if(cnt == 0) {
+                            $("#message").html("No Available Slots");
+                            $("#cowinportal").hide();
+                        }
+                        else {
+                            $("#message").html(rows);
+                            $("#cowinportal").show();
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                    }
+                });
+                btnClick+=1;
+                $("#buttonclickcount").html(btnClick);
+            }
+
+        </script>
+    </head>
+    <body>
+        <div>Todays Date: <span id="today-date"></span></div>
+        <br/>
+        <div>Enter Date:<input type="text" id="vaccine-datepicker"/></div>
+        <br/>
+        <div><button onclick="findSlotAvailability();">Check Vaccine Slot Available</button></div>
+        <br/>
+        <div id="cowinportal"><a href="https://selfregistration.cowin.gov.in/" target="_blank"">Go To CoWin Portal Now!!!</a></div>
+        <br />
+        <div>Button Clicked:<span id="buttonclickcount"></span> times</div>
+        <br/>
+        <div id="message"></div>
+    </body>
+</html>
