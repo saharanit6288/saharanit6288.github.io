@@ -34,19 +34,52 @@
                     cnt = 0;
                     $("#cowinportal").hide();
                 });
+
+                $("input[name='chkPinCode']").click(function() {
+                    if ($("#chkPinC").is(":checked")) {
+                        $("#dvPinCode").show();
+                        cnt = 0;
+                    } else {
+                        $("#dvPinCode").hide();
+                        cnt = 0;
+                    }
+                });
+
+                $('#txtPinCode').keyup(function() { 
+                    cnt = 0;
+                });
             });
 
 
             function findSlotAvailability() {
                 var vaccinedate = $("#vaccine-datepicker").val();
-                var url = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=725&date=" + vaccinedate;
-                console.log(url);
+                var pincode = $("#txtPinCode").val();
+
+                if(vaccinedate == "") {
+                    alert("Please Enter Date");
+                    return;
+                }
+
+                if($("#chkPinC").is(":checked") && pincode == "") {
+                    alert("Please Enter Pincode");
+                    return;
+                }
+
+                
+                var urlByKolkataDistrict = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=725&date=" + vaccinedate;
+                var urlByPincode = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode="+ pincode +"&date=" + vaccinedate;
+                
+                var url = $("#chkPinC").is(":checked") ? urlByPincode : urlByKolkataDistrict;
+
+                //console.log(url);
+
                 $.ajax({
                     type: "Get",
                     url: url,
                     dataType: "json",
                     success: function (result, status, xhr) {
                         var arr = result["sessions"];
+                        //console.log(arr);
                         var table;
                         var rows = "";
                         $.each(arr, function(key,data) {
@@ -81,12 +114,26 @@
                 $("#buttonclickcount").html(btnClick);
             }
 
+            
+
         </script>
     </head>
     <body>
         <div>Todays Date: <span id="today-date"></span></div>
         <br/>
         <div>Enter Date:<input type="text" id="vaccine-datepicker"/></div>
+        <br/>
+        <label for="chkDist">
+        <input type="radio" id="chkDist" name="chkPinCode" checked="checked" /> By Kolkata District
+        </label>
+        <label for="chkPinC">
+        <input type="radio" id="chkPinC" name="chkPinCode" /> By Pincode
+        </label>
+        <br/>
+        <div id="dvPinCode" style="display: none">
+            PinCode:
+            <input type="text" id="txtPinCode" />
+        </div>
         <br/>
         <div><button onclick="findSlotAvailability();">Check Vaccine Slot Available</button></div>
         <br/>
