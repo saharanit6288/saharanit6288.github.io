@@ -46,6 +46,8 @@
                 });
 
                 $('#txtPinCode').keyup(function() { 
+                    btnClick=0;
+                    $("#buttonclickcount").html("0");
                     cnt = 0;
                 });
             });
@@ -86,11 +88,17 @@
                             if(data["available_capacity"] >0 && data["min_age_limit"] >=18)
                             {
                                 cnt+=1;
-                                var row = "Name: "+data["name"]+"; Addr: "+data["address"]
-                                            +"; Pincode: "+data["pincode"]+"; Age Limit: "+data["min_age_limit"]
-                                            +"; Vaccine: "+data["vaccine"]+"; Availability: "+data["available_capacity"]
-                                            +"; Dose1: "+data["available_capacity_dose1"]+"; Dose2: "+data["available_capacity_dose2"]
-                                            +"; Fees: "+data["fee"];
+                                var row = "<table>";
+                                row = row + "<tr><td>Name: </td><td>"+data["name"]+"</td></tr>"
+                                            + "<tr><td>Addr: </td><td>"+data["address"]+"</td></tr>"
+                                            + "<tr><td>Pincode:  </td><td>"+data["pincode"]+"</td></tr>"
+                                            + "<tr><td>Age Limit:  </td><td>"+data["min_age_limit"]+"</td></tr>"
+                                            + "<tr><td>Vaccine:  </td><td>"+data["vaccine"]+"</td></tr>"
+                                            + "<tr><td>Availability:  </td><td>"+data["available_capacity"]+"</td></tr>"
+                                            + "<tr><td>Dose1:  </td><td>"+data["available_capacity_dose1"]+"</td></tr>" 
+                                            + "<tr><td>Dose2:  </td><td>"+data["available_capacity_dose2"]+"</td></tr>" 
+                                            + "<tr><td>Fees:  </td><td>"+data["fee"]+"</td></tr>";
+                                row = row + "</table>";
 
                                 rows = rows + row + "<br/><hr/>";
                             }
@@ -119,28 +127,32 @@
         </script>
     </head>
     <body>
-        <div>Todays Date: <span id="today-date"></span></div>
-        <br/>
-        <div>Enter Date:<input type="text" id="vaccine-datepicker"/></div>
-        <br/>
-        <label for="chkDist">
-        <input type="radio" id="chkDist" name="chkPinCode" checked="checked" /> By Kolkata District
-        </label>
-        <label for="chkPinC">
-        <input type="radio" id="chkPinC" name="chkPinCode" /> By Pincode
-        </label>
-        <br/>
-        <div id="dvPinCode" style="display: none">
-            PinCode:
-            <input type="text" id="txtPinCode" />
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div>Todays Date: <span id="today-date"></span></div>
+                <br/>
+                <div>Enter Date:<input type="text" id="vaccine-datepicker"/></div>
+                <br/>
+                <label for="chkDist">
+                <input type="radio" id="chkDist" name="chkPinCode" checked="checked" /> By Kolkata District
+                </label>
+                <label for="chkPinC">
+                <input type="radio" id="chkPinC" name="chkPinCode" /> By Pincode
+                </label>
+                <br/>
+                <div id="dvPinCode" style="display: none">
+                    PinCode:
+                    <input type="text" id="txtPinCode" />
+                </div>
+                <br/>
+                <div><button onclick="findSlotAvailability();">Check Vaccine Slot Available</button></div>
+                <br/>
+                <div id="cowinportal"><a href="https://selfregistration.cowin.gov.in/" target="_blank"">Go To CoWin Portal Now!!!</a></div>
+                <br />
+                <div>Button Clicked:<span id="buttonclickcount"></span> times</div>
+                <br/>
+                <div id="message"></div>
+            </div>
         </div>
-        <br/>
-        <div><button onclick="findSlotAvailability();">Check Vaccine Slot Available</button></div>
-        <br/>
-        <div id="cowinportal"><a href="https://selfregistration.cowin.gov.in/" target="_blank"">Go To CoWin Portal Now!!!</a></div>
-        <br />
-        <div>Button Clicked:<span id="buttonclickcount"></span> times</div>
-        <br/>
-        <div id="message"></div>
     </body>
 </html>
