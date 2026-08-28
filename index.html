@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ranit Saha — Senior Software Engineer</title>
+<meta name="description" content="Ranit Saha — Senior Software Engineer specializing in .NET Core, Angular, React, and enterprise applications. Expanding into cloud, microservices & CI/CD.">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #12172b;
+    --paper: #f6f5f1;
+    --paper-raised: #ffffff;
+    --navy: #1c2657;
+    --navy-deep: #10163a;
+    --amber: #d98a2b;
+    --amber-soft: #f2c98a;
+    --line: #dcd9cf;
+    --line-soft: #eae8e1;
+    --muted: #5c5f6e;
+    --green: #3f7d5c;
+
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+    --font-sans: 'Inter', -apple-system, sans-serif;
+
+    --maxw: 1120px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+
+  ::selection { background: var(--amber-soft); color: var(--navy-deep); }
+
+  :focus-visible {
+    outline: 2px solid var(--navy);
+    outline-offset: 3px;
+  }
+
+  .wrap {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ---------- NAV ---------- */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(246, 245, 241, 0.88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 18px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .brand {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .brand .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); display: inline-block; }
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--muted);
+    transition: color 0.15s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links { display: none; }
+  @media (min-width: 720px) { .nav-links { display: flex; } }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    padding: 88px 0 64px;
+    display: grid;
+    gap: 40px;
+  }
+  @media (min-width: 900px) {
+    .hero { grid-template-columns: 1.1fr 0.9fr; align-items: center; padding: 120px 0 88px; }
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--green);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .eyebrow::before { content: '●'; font-size: 8px; }
+
+  h1 {
+    font-size: clamp(34px, 5.2vw, 54px);
+    line-height: 1.06;
+    letter-spacing: -0.03em;
+    font-weight: 800;
+    color: var(--navy-deep);
+    margin-bottom: 20px;
+  }
+  h1 .accent { color: var(--amber); font-style: italic; font-family: var(--font-mono); font-weight: 600; }
+
+  .lede {
+    font-size: 18px;
+    color: var(--muted);
+    max-width: 46ch;
+    margin-bottom: 32px;
+  }
+
+  .cta-row { display: flex; flex-wrap: wrap; gap: 14px; }
+  .btn {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 14.5px;
+    padding: 13px 22px;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.15s, box-shadow 0.15s;
+    border: 1.5px solid transparent;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary { background: var(--navy-deep); color: var(--paper); }
+  .btn-primary:hover { box-shadow: 0 6px 18px rgba(16, 22, 58, 0.25); }
+  .btn-ghost { background: transparent; color: var(--navy-deep); border-color: var(--line); }
+  .btn-ghost:hover { border-color: var(--navy-deep); }
+
+  /* terminal */
+  .terminal {
+    background: var(--navy-deep);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 24px 60px -20px rgba(16, 22, 58, 0.45);
+    border: 1px solid #263066;
+  }
+  .terminal-bar {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 12px 16px;
+    background: #161d44;
+    border-bottom: 1px solid #263066;
+  }
+  .terminal-bar span { width: 10px; height: 10px; border-radius: 50%; display: block; }
+  .terminal-bar .r { background: #e5716b; }
+  .terminal-bar .y { background: #e5c06b; }
+  .terminal-bar .g { background: #6bbf8a; }
+  .terminal-label {
+    margin-left: 8px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: #7a84b8;
+  }
+  .terminal-body {
+    padding: 22px 20px 26px;
+    font-family: var(--font-mono);
+    font-size: 13.5px;
+    color: #c9cff0;
+    min-height: 220px;
+  }
+  .terminal-body .prompt { color: #6bbf8a; }
+  .terminal-body .path { color: #7a9fe5; }
+  .terminal-body .out { color: #9aa2d6; display: block; margin: 4px 0 14px 0; }
+  .terminal-body .out .key { color: #f2c98a; }
+  .caret {
+    display: inline-block;
+    width: 8px;
+    height: 15px;
+    background: #f2c98a;
+    vertical-align: text-bottom;
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* ---------- SECTIONS ---------- */
+  section { padding: 64px 0; }
+  .section-head { margin-bottom: 40px; max-width: 60ch; }
+  .section-tag {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--amber);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 10px;
+  }
+  h2 {
+    font-size: clamp(24px, 3.4vw, 32px);
+    letter-spacing: -0.02em;
+    color: var(--navy-deep);
+    font-weight: 800;
+  }
+  .section-sub { color: var(--muted); margin-top: 10px; font-size: 15.5px; }
+
+  /* stack strip */
+  .stack-strip {
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 28px 0;
+  }
+  .stack-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .chip {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    padding: 7px 13px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--paper-raised);
+    color: var(--navy-deep);
+    font-weight: 500;
+  }
+
+  /* featured projects */
+  .featured-grid {
+    display: grid;
+    gap: 22px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 720px) { .featured-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .fcard {
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: border-color 0.15s, transform 0.15s;
+    position: relative;
+  }
+  .fcard:hover { border-color: var(--navy-deep); transform: translateY(-2px); }
+
+  .fcard-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .fcard-title { font-size: 18px; font-weight: 700; color: var(--navy-deep); letter-spacing: -0.01em; }
+  .fcard-num { font-family: var(--font-mono); font-size: 12px; color: var(--line); font-weight: 700; }
+
+  .fcard-desc { color: var(--muted); font-size: 14.5px; line-height: 1.55; flex-grow: 1; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    padding: 3px 9px;
+    border-radius: 5px;
+    background: var(--paper);
+    border: 1px solid var(--line-soft);
+    color: var(--muted);
+  }
+
+  .fcard-links { display: flex; gap: 16px; margin-top: 4px; }
+  .flink {
+    font-size: 13.5px;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--navy-deep);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .flink.live { color: var(--green); }
+  .flink:hover { text-decoration: underline; }
+
+  /* project table (more projects) */
+  .more-list { display: flex; flex-direction: column; }
+  .more-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 16px;
+    align-items: center;
+    padding: 16px 4px;
+    border-bottom: 1px solid var(--line-soft);
+    font-size: 14.5px;
+  }
+  .more-row:first-child { border-top: 1px solid var(--line-soft); }
+  .more-name { font-weight: 600; color: var(--navy-deep); }
+  .more-desc { color: var(--muted); font-size: 13.5px; margin-top: 2px; }
+  .more-lang { font-family: var(--font-mono); font-size: 12px; color: var(--muted); white-space: nowrap; }
+  .more-link {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    text-decoration: none;
+    color: var(--navy-deep);
+    border: 1px solid var(--line);
+    padding: 6px 12px;
+    border-radius: 6px;
+    white-space: nowrap;
+    transition: background 0.15s;
+  }
+  .more-link:hover { background: var(--navy-deep); color: var(--paper); border-color: var(--navy-deep); }
+
+  /* about / experience */
+  .about-grid {
+    display: grid;
+    gap: 40px;
+  }
+  @media (min-width: 800px) { .about-grid { grid-template-columns: 1fr 1fr; } }
+  .about-text p { color: var(--muted); margin-bottom: 16px; font-size: 15.5px; }
+  .about-text strong { color: var(--ink); }
+
+  .timeline { border-left: 2px solid var(--line); padding-left: 24px; display: flex; flex-direction: column; gap: 24px; }
+  .tl-item { position: relative; }
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -29.5px;
+    top: 4px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--amber);
+    border: 2px solid var(--paper);
+    box-shadow: 0 0 0 2px var(--amber);
+  }
+  .tl-role { font-weight: 700; color: var(--navy-deep); font-size: 15px; }
+  .tl-meta { font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+
+  /* footer / contact */
+  footer {
+    background: var(--navy-deep);
+    color: #c9cff0;
+    padding: 64px 0 40px;
+    margin-top: 40px;
+  }
+  footer h2 { color: var(--paper); }
+  .footer-sub { color: #8890c4; margin-top: 10px; font-size: 15.5px; max-width: 50ch; }
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 32px;
+  }
+  .footer-links a {
+    text-decoration: none;
+    color: var(--paper);
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.14);
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: background 0.15s;
+  }
+  .footer-links a:hover { background: rgba(255,255,255,0.14); }
+  .footer-bottom {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.12);
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: #6b74a8;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#top" class="brand"><span class="dot"></span>ranit.saha</a>
+    <ul class="nav-links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="btn btn-ghost" style="padding:9px 16px; font-size:13.5px;">Get in touch</a>
+  </div>
+</nav>
+
+<div class="wrap" id="top">
+  <header class="hero">
+    <div>
+      <div class="eyebrow">Available for opportunities · Kolkata, IN</div>
+      <h1>Ranit Saha<br>builds full‑stack <span class="accent">// enterprise</span> systems.</h1>
+      <p class="lede">Senior Software Engineer specializing in .NET Core, SQL, and Angular/React. I ship enterprise applications end‑to‑end — and I'm currently expanding into cloud, microservices, and CI/CD.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#projects">View projects</a>
+        <a class="btn btn-ghost" href="https://github.com/saharanit6288" target="_blank" rel="noopener">GitHub profile ↗</a>
+      </div>
+    </div>
+    <div class="terminal" role="img" aria-label="Terminal window showing a whoami-style summary of Ranit Saha's role and stack">
+      <div class="terminal-bar">
+        <span class="r"></span><span class="y"></span><span class="g"></span>
+        <span class="terminal-label">bash — whoami</span>
+      </div>
+      <div class="terminal-body">
+        <div><span class="prompt">ranit@dev</span><span class="path">:~$</span> whoami --verbose</div>
+        <span class="out"><span class="key">role</span>      Senior Software Engineer
+<span class="key">company</span>   Accenture
+<span class="key">stack</span>     .NET Core · SQL · EF Core · Angular · React
+<span class="key">focus</span>     Enterprise apps, auth, CRUD systems at scale
+<span class="key">learning</span>  Cloud · Microservices · CI/CD
+<span class="key">shipped</span>   25+ public repos, 12+ live demos</span>
+        <div><span class="prompt">ranit@dev</span><span class="path">:~$</span> <span class="caret"></span></div>
+      </div>
+    </div>
+  </header>
+</div>
+
+<div class="stack-strip">
+  <div class="wrap">
+    <div class="stack-row">
+      <span class="chip">C# / .NET Core / .NET 8</span>
+      <span class="chip">ASP.NET MVC</span>
+      <span class="chip">Blazor Server / MudBlazor</span>
+      <span class="chip">Entity Framework Core</span>
+      <span class="chip">SQL Server</span>
+      <span class="chip">Angular 6/7</span>
+      <span class="chip">React 18</span>
+      <span class="chip">Redux / Redux Thunk</span>
+      <span class="chip">Firebase</span>
+      <span class="chip">Node.js</span>
+      <span class="chip">MongoDB / Mongoose</span>
+      <span class="chip">SignalR</span>
+      <span class="chip">Azure App Service</span>
+      <span class="chip">Ionic</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<section id="work">
+  <div class="section-head">
+    <div class="section-tag">Featured builds</div>
+    <h2>Production‑style apps with live demos</h2>
+    <p class="section-sub">Full CRUD systems with authentication, file upload, and deployed environments — not just tutorials.</p>
+  </div>
+
+  <div class="featured-grid">
+
+    <article class="fcard">
+      <div class="fcard-top">
+        <div class="fcard-title">Inventory Management System</div>
+        <div class="fcard-num">01</div>
+      </div>
+      <p class="fcard-desc">A demo inventory management system built on Blazor Server and .NET 6 with EF Core — deployed and running live on Azure.</p>
+      <div class="tag-row">
+        <span class="tag">Blazor Server</span><span class="tag">.NET 6</span><span class="tag">EF Core</span>
+      </div>
+      <div class="fcard-links">
+        <a class="flink" href="https://github.com/saharanit6288/InventorySystem_BlazorServer_Net6" target="_blank" rel="noopener">Code ↗</a>
+        <a class="flink live" href="https://ims1.azurewebsites.net/" target="_blank" rel="noopener">Live demo ↗</a>
+      </div>
+    </article>
+
+    <article class="fcard">
+      <div class="fcard-top">
+        <div class="fcard-title">Bulky Book — CRUD App</div>
+        <div class="fcard-num">02</div>
+      </div>
+      <p class="fcard-desc">.NET 8 MVC application with full CRUD operations, file upload, and role‑based authentication / authorization.</p>
+      <div class="tag-row">
+        <span class="tag">.NET 8</span><span class="tag">ASP.NET MVC</span><span class="tag">Auth</span>
+      </div>
+      <div class="fcard-links">
+        <a class="flink" href="https://github.com/saharanit6288/Bulky_DotNet8_MVC" target="_blank" rel="noopener">Code ↗</a>
+        <a class="flink live" href="https://bulkybook1.azurewebsites.net/" target="_blank" rel="noopener">Live demo ↗</a>
+      </div>
+    </article>
+
+    <article class="fcard">
+      <div class="fcard-top">
+        <div class="fcard-title">MudBlazor UI CRUD App</div>
+        <div class="fcard-num">03</div>
+      </div>
+      <p class="fcard-desc">MudBlazor‑based UI with CRUD operations, file upload, delete‑confirmation modals, and authentication / authorization.</p>
+      <div class="tag-row">
+        <span class="tag">Blazor</span><span class="tag">MudBlazor</span><span class="tag">C#</span>
+      </div>
+      <div class="fcard-links">
+        <a class="flink" href="https://github.com/saharanit6288/MudBlazorUICRUDApp" target="_blank" rel="noopener">Code ↗</a>
+        <a class="flink live" href="https://mudblazorcrudapp.azurewebsites.net/" target="_blank" rel="noopener">Live demo ↗</a>
+      </div>
+    </article>
+
+    <article class="fcard">
+      <div class="fcard-top">
+        <div class="fcard-title">My Watchlist</div>
+        <div class="fcard-num">04</div>
+      </div>
+      <p class="fcard-desc">A personal movies/shows watchlist app — React 18 and Firebase, with full CRUD and authentication.</p>
+      <div class="tag-row">
+        <span class="tag">React 18</span><span class="tag">Firebase</span><span class="tag">Auth</span>
+      </div>
+      <div class="fcard-links">
+        <a class="flink" href="https://github.com/saharanit6288/React18-CRUD-Auth-App" target="_blank" rel="noopener">Code ↗</a>
+        <a class="flink live" href="https://mywatchlist-5acc3.web.app/" target="_blank" rel="noopener">Live demo ↗</a>
+      </div>
+    </article>
+
+    <article class="fcard">
+      <div class="fcard-top">
+        <div class="fcard-title">Blazor Server SignalR App</div>
+        <div class="fcard-num">05</div>
+      </div>
+      <p class="fcard-desc">Real‑time chat room built with Blazor Server and SignalR — demonstrating live, bidirectional communication.</p>
+      <div class="tag-row">
+        <span class="tag">Blazor</span><span class="tag">SignalR</span><span class="tag">Real‑time</span>
+      </div>
+      <div class="fcard-links">
+        <a class="flink" href="https://github.com/saharanit6288/BlazorServerSignalRApp" target="_blank" rel="noopener">Code ↗</a>
+      </div>
+    </article>
+
+    <article class="fcard">
+      <div class="fcard-top">
+        <div class="fcard-title">React Sports Updater</div>
+        <div class="fcard-num">06</div>
+      </div>
+      <p class="fcard-desc">Live football and cricket match results with sports news, built as one of the earliest React apps in this portfolio.</p>
+      <div class="tag-row">
+        <span class="tag">React</span><span class="tag">REST APIs</span>
+      </div>
+      <div class="fcard-links">
+        <a class="flink" href="https://github.com/saharanit6288/ReactSportsUpdaterApp" target="_blank" rel="noopener">Code ↗</a>
+        <a class="flink live" href="https://saharanit6288.github.io/SportsUpdater/" target="_blank" rel="noopener">Live demo ↗</a>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-head">
+    <div class="section-tag">Full archive</div>
+    <h2>More projects</h2>
+    <p class="section-sub">A broader set of demos spanning Angular, Firebase, chatbots, and Node — built while learning and shipping across the stack.</p>
+  </div>
+
+  <div class="more-list">
+
+    <div class="more-row">
+      <div>
+        <div class="more-name">CoWin Vaccine Finder</div>
+        <div class="more-desc">Vaccine slot–finding app built on the CoWin public API.</div>
+      </div>
+      <div class="more-lang">JavaScript</div>
+      <a class="more-link" href="https://saharanit6288.github.io/CowinVaccineFinder/" target="_blank" rel="noopener">Live ↗</a>
+    </div>
+
+    <div class="more-row">
+      <div>
+        <div class="more-name">React EPL App</div>
+        <div class="more-desc">EPL 2018 week‑wise fixtures, results, standings, and player stats.</div>
+      </div>
+      <div class="more-lang">React</div>
+      <a class="more-link" href="https://github.com/saharanit6288/ReactSportsUpdaterApp" target="_blank" rel="noopener">Code ↗</a>
+    </div>
+
+    <div class="more-row">
+      <div>
+        <div class="more-name">React Firebase Board App</div>
+        <div class="more-desc">A demo React + Firestore board / kanban‑style app.</div>
+      </div>
+      <div class="more-lang">React · Firebase</div>
+      <a class="more-link" href="https://saharanit6288.github.io/boards-app/" target="_blank" rel="noopener">Live ↗</a>
+    </div>
+
+    <div class="more-row">
+      <div>
+        <div class="more-name">News Chatbot</div>
+        <div class="more-desc">News chat bot using Next.js, Node.js, Pusher, DialogFlow & NewsAPI.</div>
+      </div>
+      <div class="more-lang">Next.js · Node</div>
+      <a class="more-link" href="https://github.com/saharanit6288/news-chat-bot" target="_blank" rel="noopener">Code ↗</a>
+    </div>
+
+    <div class="more-row">
+      <div>
+        <div class="more-name">React Weather Chatbot</div>
+        <div class="more-desc">Weather chatbot using React, Pusher channels, and DialogFlow.</div>
+      </div>
+      <div class="more-lang">React</div>
+      <a class="more-link" href="https://github.com/saharanit6288/react-weather-chatbot" target="_blank" rel="noopener">Code ↗</a>
+    </div>
+
+    <div class="more-row">
+      <div>
+        <div class="more-name">React Chat App</div>
+        <div class="more-desc">Real‑time chat app built with React and Pusher Chatkit.</div>
+      </div>
+      <div class="more-lang">React</div>
+      <a class="more-link" href="https://saharanit6288.github.io/react-chat-app/" target="_blank" rel="noopener">Live ↗</a>
+    </div>
+
+    <div class="more-row">
+      <div>
+        <div class="more-name">Node REST API + Mongoose</div>
+        <div class="more-desc">REST API demo using Node.js with Mongoose and MongoDB.</div>
+      </div>
+      <div class="more-lang">Node · MongoDB</div>
+      <a class="more-link" href="https://github.com/saharanit6288/Node-RestApi-Mongoose" target="_blank" rel="noopener">Code ↗</a>
+    </div>
+
+    <div class="more-row">
+      <div>
+        <div class="more-name">Angular Firebase Authentication</div>
+        <div class="more-desc">Full auth flow — sign in, sign up, verify email, reset password, Google login.</div>
+      </div>
+      <div class="more-lang">Angular 7 · Firebase</div>
+      <a class="more-link" href="https://saharanit6288.github.io/angularfirebase-authentication/" target="_blank" rel="noopener">Live ↗</a>
+    </div>
+
+    <div class="more-row">
+      <div>
+        <div class="more-name">Angular Firebase Student App</div>
+        <div class="more-desc">Angular 7 + Firebase 5 student CRUD demo application.</div>
+      </div>
+      <div class="more-lang">Angular 7</div>
+      <a class="more-link" href="https://saharanit6288.github.io/angularfirebase-student-app/" target="_blank" rel="noopener">Live ↗</a>
+    </div>
+
+    <div class="more-row">
+      <div>
+        <div class="more-name">Angular Firebase Dynamic Nested Forms</div>
+        <div class="more-desc">Dynamic, nested reactive forms for a customers demo app.</div>
+      </div>
+      <div class="more-lang">Angular 7</div>
+      <a class="more-link" href="https://saharanit6288.github.io/angularfirebase-dynamic-nested-reactive-form-app/" target="_blank" rel="noopener">Live ↗</a>
+    </div>
+
+    <div class="more-row">
+      <div>
+        <div class="more-name">GitHub User Search (Redux Thunk)</div>
+        <div class="more-desc">GitHub user search built with React, Redux, and Redux Thunk.</div>
+      </div>
+      <div class="more-lang">React · Redux</div>
+      <a class="more-link" href="https://saharanit6288.github.io/github-search/" target="_blank" rel="noopener">Live ↗</a>
+    </div>
+
+    <div class="more-row">
+      <div>
+        <div class="more-name">Simple CRUD (React + Redux)</div>
+        <div class="more-desc">A minimal CRUD app for learning React with Redux state management.</div>
+      </div>
+      <div class="more-lang">React · Redux</div>
+      <a class="more-link" href="https://saharanit6288.github.io/crud-redux/" target="_blank" rel="noopener">Live ↗</a>
+    </div>
+
+    <div class="more-row">
+      <div>
+        <div class="more-name">React Unsplash Image Search</div>
+        <div class="more-desc">Simple image search app powered by the Unsplash API.</div>
+      </div>
+      <div class="more-lang">React</div>
+      <a class="more-link" href="https://saharanit6288.github.io/react-image-search/" target="_blank" rel="noopener">Live ↗</a>
+    </div>
+
+    <div class="more-row">
+      <div>
+        <div class="more-name">First Angular.js App</div>
+        <div class="more-desc">AngularJS front end with an ASP.NET C# Web API and SQL Server backend.</div>
+      </div>
+      <div class="more-lang">AngularJS · C#</div>
+      <a class="more-link" href="https://github.com/saharanit6288/FirstAngularJsApp" target="_blank" rel="noopener">Code ↗</a>
+    </div>
+
+    <div class="more-row">
+      <div>
+        <div class="more-name">First Angular 4 App</div>
+        <div class="more-desc">Project‑management demo — Angular 4, ASP.NET Web API, SQL Server.</div>
+      </div>
+      <div class="more-lang">Angular 4 · C#</div>
+      <a class="more-link" href="https://github.com/saharanit6288/FirstAngular4App" target="_blank" rel="noopener">Code ↗</a>
+    </div>
+
+    <div class="more-row">
+      <div>
+        <div class="more-name">Ionic + Angular Firebase App</div>
+        <div class="more-desc">Ionic/Angular classroom CRUD app backed by Firebase Realtime Database.</div>
+      </div>
+      <div class="more-lang">Ionic · Angular</div>
+      <a class="more-link" href="https://github.com/saharanit6288/Angular-Firebase-Ionic-App" target="_blank" rel="noopener">Code ↗</a>
+    </div>
+
+  </div>
+</section>
+
+<section id="about">
+  <div class="section-head">
+    <div class="section-tag">About</div>
+    <h2>Enterprise engineering, from schema to screen</h2>
+  </div>
+
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I'm a <strong>Senior Software Engineer at Accenture</strong>, based in Kolkata, working across the full stack on enterprise applications — <strong>.NET Core APIs, SQL Server data layers, and Angular/React front ends.</strong></p>
+      <p>Over the years I've built and shipped a wide range of production‑style systems: inventory and CRUD platforms with authentication and file handling, real‑time apps with SignalR, and integrations across Firebase, MongoDB, and third‑party APIs.</p>
+      <p>I'm currently expanding into <strong>cloud infrastructure, microservices, and CI/CD</strong> — extending the same enterprise‑application mindset to distributed, cloud‑native systems.</p>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-role">Senior Software Engineer</div>
+        <div class="tl-meta">Accenture · Kolkata</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-role">Full‑stack .NET / Angular / React development</div>
+        <div class="tl-meta">Enterprise CRUD systems, auth, EF Core, SQL Server</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-role">Cloud, microservices & CI/CD</div>
+        <div class="tl-meta">Currently expanding skillset</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="section-tag" style="color:var(--amber-soft);">Get in touch</div>
+    <h2>Let's build something reliable.</h2>
+    <p class="footer-sub">Open to Senior / Full‑Stack Engineer roles working across .NET, Angular, React, and cloud‑native systems.</p>
+    <div class="footer-links">
+      <a href="https://github.com/saharanit6288" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://saharanit6288.github.io/" target="_blank" rel="noopener">Portfolio home ↗</a>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Ranit Saha</span>
+      <span>Built with HTML, CSS &amp; a terminal habit</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
